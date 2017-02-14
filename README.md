@@ -1,4 +1,4 @@
-# Business Card
+# Business Card Android (5.1) Application
 
 ## Contributors
 

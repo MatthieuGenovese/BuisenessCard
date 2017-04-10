@@ -28,6 +28,7 @@ public abstract class ContactsBase{
     }
 
     public SQLiteDatabase getDb() {
+        mDb = mHandler.getReadableDatabase();
         return mDb;
     }
 }

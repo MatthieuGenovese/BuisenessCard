@@ -14,6 +14,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
 import static android.R.attr.category;
 
@@ -36,9 +38,8 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         onNavigationItemSelected(null);
-        ContentValues values = new ContentValues();
-        ContactsAdapter adapter = new ContactsAdapter(this);
-        adapter.ajouter();
+        Contact test = new Contact("A","Gilbert", "6 av doniol", "matthieu.genovese@gmail.com", "0665626368", "Agriculteur" );
+       // db.ajouter(test);
     }
 
     @Override

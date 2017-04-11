@@ -52,7 +52,12 @@ public class ContactsAdapter extends ContactsBase{
     }
 
 
-    public void supprimer(long id) {
+    public void deleteAll() {
+        Cursor c = super.getDb().rawQuery("DELETE FROM " + TABLE_NAME, new String[]{});
+        while(c.moveToNext()){
+            System.out.println("données supprimée !");
+        }
+        c.close();
     }
 
     public void modifier() {

@@ -20,6 +20,10 @@ public class ContactsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         vContacts = inflater.inflate(R.layout.contacts_layout, container, false);
         ContactsAdapter db = new ContactsAdapter(this.getActivity().getApplicationContext());
+        Contact c = new Contact("Froment", "Jeremy", "Nice", "jeremy@jeremy.jeremy", "0662656869", "developper");
+        Contact c2 = new Contact("Genovese", "Matthieu", "Antibes", "matthieu@matthieu.matthieu", "0662658578", "developper");
+        db.ajouter(c);
+        db.ajouter(c2);
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(this.getActivity().getApplicationContext(),android.R.layout.simple_list_item_2, db.getAllDatas(), new String[]{db.COLUMN_NAME_NOM , db.COLUMN_NAME_PRENOM}, new int[]{android.R.id.text1, android.R.id.text2} ){
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {

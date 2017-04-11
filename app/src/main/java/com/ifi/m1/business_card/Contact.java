@@ -63,4 +63,8 @@ public class Contact {
     public void setProfession(String profession) {
         this.profession = profession;
     }
+
+    public String toString(){
+        return nom + prenom + adresse + email  + tel + profession;
+    }
 }

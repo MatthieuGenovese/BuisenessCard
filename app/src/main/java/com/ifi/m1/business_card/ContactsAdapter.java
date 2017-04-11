@@ -36,6 +36,10 @@ public class ContactsAdapter extends ContactsBase{
 
     public Cursor getAllDatas(){
         super.open();
+        Cursor c = super.getDb().rawQuery("SELECT id as _id, nom, prenom, email, profession, adresse, tel FROM " + TABLE_NAME, new String[]{});
+        while(c.moveToNext()){
+            System.out.println(c.getInt(0));
+        }
         return super.getDb().rawQuery("SELECT id as _id, nom, prenom, email, profession, adresse, tel FROM " + TABLE_NAME, new String[]{});
     }
 
@@ -63,7 +67,14 @@ public class ContactsAdapter extends ContactsBase{
     public void modifier() {
     }
 
-    public void selectionner(long id) {
+    public Contact selectionner(String nom, String prenom) {
+        Cursor cursor = super.getDb().rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_NAME_NOM + " = '" + nom +"' AND " + COLUMN_NAME_PRENOM + " = '" + prenom +"';", new String[]{});
+        Contact c = new Contact("","","","","","");
+        while(cursor.moveToNext()){
+            c = new Contact(cursor.getString(1), cursor.getString(2), cursor.getString(5), cursor.getString(3), cursor.getString(6), cursor.getString(4));
+        }
+        cursor.close();
+        return c;
     }
 
     public int getNbContacts() {

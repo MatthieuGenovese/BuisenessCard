@@ -5,5 +5,34 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Main !!!!" />
+        android:gravity="center"
+        android:text="Nombre de contacts"
+        android:id="@+id/textView3"
+        android:textSize="18sp"
+        android:layout_above="@+id/main_stats"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/main_stats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="0"
+        android:textStyle="normal|bold"
+        android:textSize="36sp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="154dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Bienvenue\nsur\nBusiness Card !"
+        android:id="@+id/textView2"
+        android:textSize="30sp"
+        android:textStyle="normal|bold"
+        android:layout_marginTop="53dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

@@ -1,10 +1,6 @@
 package com.ifi.m1.business_card;
 
 import android.app.FragmentManager;
-import android.content.Intent;
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,10 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
-
-import static android.R.attr.category;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -29,16 +21,17 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        onNavigationItemSelected(null);
-        Contact test = new Contact("A","Gilbert", "6 av doniol", "matthieu.genovese@gmail.com", "0665626368", "Agriculteur" );
+        onNavigationItemSelected(navigationView.getMenu().getItem(0).setChecked(true));
+//        Contact test = new Contact("A","Gilbert", "6 av doniol", "matthieu.genovese@gmail.com", "0665626368", "Agriculteur" );
        // db.ajouter(test);
     }
 
@@ -73,27 +66,26 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        FragmentManager fragmentManager = getFragmentManager();
-        if (item != null) {
-            int id = item.getItemId();
+        int id = item.getItemId();
 
-            if (id == R.id.nav_profil) {
-                fragmentManager
-                        .beginTransaction()
-                        .replace(R.id.content_frame, new ProfilFragment())
-                        .commit();
-            } else if (id == R.id.nav_parametres) {
-                fragmentManager
-                        .beginTransaction()
-                        .replace(R.id.content_frame, new PreferencesFragment())
-                        .commit();
-            } else if (id == R.id.nav_contact) {
-                fragmentManager
-                        .beginTransaction()
-                        .replace(R.id.content_frame, new ContactsFragment())
-                        .commit();
-            }
-        } else {
+        FragmentManager fragmentManager = getFragmentManager();
+
+        if (id == R.id.nav_profil) {
+            fragmentManager
+                    .beginTransaction()
+                    .replace(R.id.content_frame, new ProfilFragment())
+                    .commit();
+        } else if (id == R.id.nav_parametres) {
+            fragmentManager
+                    .beginTransaction()
+                    .replace(R.id.content_frame, new PreferencesFragment())
+                    .commit();
+        } else if (id == R.id.nav_contact) {
+            fragmentManager
+                    .beginTransaction()
+                    .replace(R.id.content_frame, new ContactsFragment())
+                    .commit();
+        } else if (id == R.id.nav_main) {
             fragmentManager
                     .beginTransaction()
                     .replace(R.id.content_frame, new MainFragment())

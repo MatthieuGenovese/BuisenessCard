@@ -65,4 +65,16 @@ public class ContactsAdapter extends ContactsBase{
 
     public void selectionner(long id) {
     }
+
+    public int getNbContacts() {
+        super.open();
+        Cursor c = super.getDb().rawQuery("SELECT COUNT(*) FROM " + TABLE_NAME, new String[]{});
+
+        int result = 0;
+        while(c.moveToNext()) {
+            result = c.getInt(0);
+        }
+
+        return result;
+    }
 }

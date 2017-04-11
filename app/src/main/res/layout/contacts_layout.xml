@@ -5,11 +5,11 @@
     <ListView
         android:id="@android:id/list"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView10"
-        android:textColor="#000000"/>
+        android:layout_height="wrap_content"/>
+        <!--android:layout_below="@+id/textView10"-->
 
-    <TextView
+
+    <!--<TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Mes contacts"
@@ -17,6 +17,6 @@
         android:padding="10px"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:textStyle="normal|bold" />
+        android:textStyle="normal|bold" />-->
 
 </RelativeLayout>

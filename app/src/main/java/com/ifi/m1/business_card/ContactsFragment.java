@@ -57,6 +57,10 @@ public class ContactsFragment extends ListFragment {
         generateCard.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Carte c = new Carte(nomString, numeroString);
+                if(((MainActivity)getActivity()).getAdresseB()){
+
+                    System.out.println("ACTIVER");
+                }
                 db.ajouter(c);
                 generateCard.setVisibility(View.INVISIBLE);
             }

@@ -31,8 +31,6 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         onNavigationItemSelected(navigationView.getMenu().getItem(0).setChecked(true));
-//        Contact test = new Contact("A","Gilbert", "6 av doniol", "matthieu.genovese@gmail.com", "0665626368", "Agriculteur" );
-       // db.ajouter(test);
     }
 
     @Override

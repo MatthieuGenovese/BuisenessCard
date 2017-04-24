@@ -4,16 +4,12 @@ package com.ifi.m1.business_card;
  * Created by Matthieu on 10/04/2017.
  */
 
-public class Contact {
+public class Carte {
     private String nom,prenom,adresse,email,tel,profession;
 
-    public Contact(String nom, String prenom, String adresse, String email, String tel, String profession){
+    public Carte(String nom,String tel){
         this.nom = nom;
-        this.prenom = prenom;
-        this.adresse = adresse;
-        this.email = email;
         this.tel = tel;
-        this.profession = profession;
     }
 
     public String getNom() {

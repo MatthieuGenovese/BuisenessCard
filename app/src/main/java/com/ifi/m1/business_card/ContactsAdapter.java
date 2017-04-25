@@ -3,8 +3,6 @@ package com.ifi.m1.business_card;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 
 /**
  * Created by Matthieu on 10/04/2017.
@@ -36,14 +34,11 @@ public class ContactsAdapter extends ContactsBase{
 
     public Cursor getAllDatas(){
         super.open();
-        Cursor c = super.getDb().rawQuery("SELECT id as _id, nom, prenom, email, profession, adresse, tel FROM " + TABLE_NAME, new String[]{});
-        while(c.moveToNext()){
-            System.out.println(c.getInt(0));
-        }
-        return super.getDb().rawQuery("SELECT id as _id, nom, prenom, email, profession, adresse, tel FROM " + TABLE_NAME, new String[]{});
+        Cursor c = super.getDb().rawQuery("SELECT _id, nom, prenom, email, profession, adresse, tel FROM " + TABLE_NAME, new String[]{});
+        return c;
     }
 
-    public void ajouter(Contact c) {
+    public void ajouter(Carte c) {
         super.open();
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME_NOM, c.getNom());
@@ -52,6 +47,7 @@ public class ContactsAdapter extends ContactsBase{
         values.put(COLUMN_NAME_EMAIL, c.getEmail());
         values.put(COLUMN_NAME_PROFESSION, c.getProfession());
         values.put(COLUMN_NAME_TEL, c.getTel());
+        System.out.println("Ajout de : " + c.getNom() + " , " + c.getTel());
         super.getDb().insert(TABLE_NAME,null, values);
     }
 
@@ -67,11 +63,11 @@ public class ContactsAdapter extends ContactsBase{
     public void modifier() {
     }
 
-    public Contact selectionner(String nom, String prenom) {
-        Cursor cursor = super.getDb().rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_NAME_NOM + " = '" + nom +"' AND " + COLUMN_NAME_PRENOM + " = '" + prenom +"';", new String[]{});
-        Contact c = new Contact("","","","","","");
+    public Carte selectionner(String nom, String numero) {
+        Cursor cursor = super.getDb().rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_NAME_NOM + " = '" + nom +"' AND " + COLUMN_NAME_TEL + " = '" + numero +"';", new String[]{});
+        Carte c = new Carte("","");
         while(cursor.moveToNext()){
-            c = new Contact(cursor.getString(1), cursor.getString(2), cursor.getString(5), cursor.getString(3), cursor.getString(6), cursor.getString(4));
+            c = new Carte(cursor.getString(1), cursor.getString(6));
         }
         cursor.close();
         return c;
@@ -80,12 +76,10 @@ public class ContactsAdapter extends ContactsBase{
     public int getNbContacts() {
         super.open();
         Cursor c = super.getDb().rawQuery("SELECT COUNT(*) FROM " + TABLE_NAME, new String[]{});
-
         int result = 0;
         while(c.moveToNext()) {
             result = c.getInt(0);
         }
-
         return result;
     }
 }

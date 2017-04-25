@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Paramètres"
+        android:id="@+id/textView12"
+        android:padding="10px"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textStyle="normal|bold" />
+
+    <CheckBox
+        android:id="@+id/checkPrenom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView12"
+        android:layout_below="@+id/textView12"
+        android:layout_marginTop="53dp"
+        android:text="Prénom" />
+
+    <CheckBox
+        android:id="@+id/checkEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/checkPrenom"
+        android:layout_below="@+id/checkPrenom"
+        android:text="EMAIL" />
+
+    <CheckBox
+        android:id="@+id/checkAdresse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/checkEmail"
+        android:layout_below="@+id/checkEmail"
+        android:text="Adresse" />
+
+    <CheckBox
+        android:id="@+id/checkProfession"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/checkAdresse"
+        android:layout_below="@+id/checkAdresse"
+        android:text="profession" />
+
+</RelativeLayout>

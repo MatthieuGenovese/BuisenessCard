@@ -8,19 +8,90 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public boolean prenomB = false;
+    public boolean adresseB = false;
+    public boolean emailB = false;
+    public boolean professionB = false;
+
+    public boolean getPrenomB() {
+        return prenomB;
+    }
+
+    public void setPrenomB(boolean prenomB) {
+        this.prenomB = prenomB;
+    }
+
+    public boolean getAdresseB() {
+        return adresseB;
+    }
+
+    public void setAdresseB(boolean adresseB) {
+        this.adresseB = adresseB;
+    }
+
+    public boolean getEmailB() {
+        return emailB;
+    }
+
+    public void setEmailB(boolean emailB) {
+        this.emailB = emailB;
+    }
+
+    public boolean getProfessionB() {
+        return professionB;
+    }
+
+    public void setProfessionB(boolean professionB) {
+        this.professionB = professionB;
+    }
+
+    public void lireConfig(){
+
+        try {
+            InputStream inputStream = openFileInput("config.bin");
+            if ( inputStream != null ) {
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                String receiveString = "";
+                StringBuilder stringBuilder = new StringBuilder();
+
+                while ( (receiveString = bufferedReader.readLine()) != null ) {
+                    stringBuilder.append(receiveString);
+                }
+
+                inputStream.close();
+                String[] config = stringBuilder.toString().split(" ");
+                prenomB = Boolean.parseBoolean(config[0]);
+                adresseB = Boolean.parseBoolean(config[1]);
+                emailB = Boolean.parseBoolean(config[2]);
+                professionB = Boolean.parseBoolean(config[3]);
+            }
+        }
+        catch (Exception e) {
+           System.out.println(e);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        lireConfig();
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -31,8 +102,6 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         onNavigationItemSelected(navigationView.getMenu().getItem(0).setChecked(true));
-//        Contact test = new Contact("A","Gilbert", "6 av doniol", "matthieu.genovese@gmail.com", "0665626368", "Agriculteur" );
-       // db.ajouter(test);
     }
 
     @Override

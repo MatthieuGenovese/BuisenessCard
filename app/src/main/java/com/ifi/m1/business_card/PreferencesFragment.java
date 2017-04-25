@@ -7,16 +7,14 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
 
-import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 
 public class PreferencesFragment extends Fragment {
     View vPreferences;
-    CheckBox prenom,email,adresse,profession;
-    boolean prenomB,adresseB,emailB,professionB;
+    CheckBox prenom, email, adresse, profession;
+    boolean prenomB, adresseB, emailB, professionB;
 
     @Nullable
     @Override
@@ -26,11 +24,11 @@ public class PreferencesFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState){
-        prenomB = ((MainActivity)this.getActivity()).getPrenomB();
-        adresseB = ((MainActivity)this.getActivity()).getAdresseB();
-        professionB = ((MainActivity)this.getActivity()).getProfessionB();
-        emailB = ((MainActivity)this.getActivity()).getEmailB();
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        prenomB = ((MainActivity) this.getActivity()).getPrenomB();
+        adresseB = ((MainActivity) this.getActivity()).getAdresseB();
+        professionB = ((MainActivity) this.getActivity()).getProfessionB();
+        emailB = ((MainActivity) this.getActivity()).getEmailB();
         prenom = (CheckBox) this.getActivity().findViewById(R.id.checkPrenom);
         adresse = (CheckBox) this.getActivity().findViewById(R.id.checkAdresse);
         email = (CheckBox) this.getActivity().findViewById(R.id.checkEmail);
@@ -40,11 +38,11 @@ public class PreferencesFragment extends Fragment {
             public void onClick(View view) {
                 prenomB = prenom.isChecked();
                 ecrireConfig();
-                ((MainActivity)getActivity()).lireConfig();
-                prenomB = ((MainActivity)getActivity()).getPrenomB();
-                adresseB = ((MainActivity)getActivity()).getAdresseB();
-                professionB = ((MainActivity)getActivity()).getProfessionB();
-                emailB = ((MainActivity)getActivity()).getEmailB();
+                ((MainActivity) getActivity()).lireConfig();
+                prenomB = ((MainActivity) getActivity()).getPrenomB();
+                adresseB = ((MainActivity) getActivity()).getAdresseB();
+                professionB = ((MainActivity) getActivity()).getProfessionB();
+                emailB = ((MainActivity) getActivity()).getEmailB();
             }
         });
         adresse.setOnClickListener(new View.OnClickListener() {
@@ -52,11 +50,11 @@ public class PreferencesFragment extends Fragment {
             public void onClick(View view) {
                 adresseB = adresse.isChecked();
                 ecrireConfig();
-                ((MainActivity)getActivity()).lireConfig();
-                prenomB = ((MainActivity)getActivity()).getPrenomB();
-                adresseB = ((MainActivity)getActivity()).getAdresseB();
-                professionB = ((MainActivity)getActivity()).getProfessionB();
-                emailB = ((MainActivity)getActivity()).getEmailB();
+                ((MainActivity) getActivity()).lireConfig();
+                prenomB = ((MainActivity) getActivity()).getPrenomB();
+                adresseB = ((MainActivity) getActivity()).getAdresseB();
+                professionB = ((MainActivity) getActivity()).getProfessionB();
+                emailB = ((MainActivity) getActivity()).getEmailB();
             }
         });
         email.setOnClickListener(new View.OnClickListener() {
@@ -64,11 +62,11 @@ public class PreferencesFragment extends Fragment {
             public void onClick(View view) {
                 emailB = email.isChecked();
                 ecrireConfig();
-                ((MainActivity)getActivity()).lireConfig();
-                prenomB = ((MainActivity)getActivity()).getPrenomB();
-                adresseB = ((MainActivity)getActivity()).getAdresseB();
-                professionB = ((MainActivity)getActivity()).getProfessionB();
-                emailB = ((MainActivity)getActivity()).getEmailB();
+                ((MainActivity) getActivity()).lireConfig();
+                prenomB = ((MainActivity) getActivity()).getPrenomB();
+                adresseB = ((MainActivity) getActivity()).getAdresseB();
+                professionB = ((MainActivity) getActivity()).getProfessionB();
+                emailB = ((MainActivity) getActivity()).getEmailB();
             }
         });
         profession.setOnClickListener(new View.OnClickListener() {
@@ -76,31 +74,30 @@ public class PreferencesFragment extends Fragment {
             public void onClick(View view) {
                 professionB = profession.isChecked();
                 ecrireConfig();
-                ((MainActivity)getActivity()).lireConfig();
-                prenomB = ((MainActivity)getActivity()).getPrenomB();
-                adresseB = ((MainActivity)getActivity()).getAdresseB();
-                professionB = ((MainActivity)getActivity()).getProfessionB();
-                emailB = ((MainActivity)getActivity()).getEmailB();
+                ((MainActivity) getActivity()).lireConfig();
+                prenomB = ((MainActivity) getActivity()).getPrenomB();
+                adresseB = ((MainActivity) getActivity()).getAdresseB();
+                professionB = ((MainActivity) getActivity()).getProfessionB();
+                emailB = ((MainActivity) getActivity()).getEmailB();
             }
         });
-        if(prenomB){
+        if (prenomB) {
             prenom.setChecked(true);
         }
-        if(adresseB){
+        if (adresseB) {
             adresse.setChecked(true);
         }
-        if(emailB){
+        if (emailB) {
             email.setChecked(true);
         }
-        if(professionB){
+        if (professionB) {
             profession.setChecked(true);
         }
 
-
     }
 
-    private void ecrireConfig(){
-       OutputStreamWriter osw;
+    private void ecrireConfig() {
+        OutputStreamWriter osw;
         try {
             osw = new OutputStreamWriter(this.getActivity().openFileOutput("config.bin", Context.MODE_PRIVATE));
             osw.write(String.valueOf(prenomB));
@@ -111,8 +108,7 @@ public class PreferencesFragment extends Fragment {
             osw.write(" ");
             osw.write(String.valueOf(professionB));
             osw.close();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

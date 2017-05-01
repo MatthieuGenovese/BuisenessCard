@@ -26,6 +26,12 @@ public class MainActivity extends AppCompatActivity
     public boolean emailB = false;
     public boolean professionB = false;
 
+    private String profileNom = "";
+    private String profilePrenom = "";
+    private String profileVille = "";
+    private String profileEmail = "";
+    private String profileTelephone = "";
+
     public boolean getPrenomB() {
         return prenomB;
     }
@@ -82,6 +88,34 @@ public class MainActivity extends AppCompatActivity
         }
         catch (Exception e) {
            System.out.println(e);
+        }
+
+    }
+
+    public void lireConfigProfile() {
+        try {
+            InputStream inputStream = openFileInput("profile.bin");
+            if (inputStream != null) {
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                String receiveString;
+                StringBuilder stringBuilder = new StringBuilder();
+
+                while ( (receiveString = bufferedReader.readLine()) != null ) {
+                    stringBuilder.append(receiveString);
+                }
+
+                inputStream.close();
+                String[] config = stringBuilder.toString().split(";");
+                setProfileNom(config[0]);
+                setProfilePrenom(config[1]);
+                setProfileVille(config[2]);
+                setProfileEmail(config[3]);
+                setProfileTelephone(config[4]);
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e);
         }
     }
 
@@ -164,5 +198,45 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public String getProfileNom() {
+        return profileNom;
+    }
+
+    public void setProfileNom(String profileNom) {
+        this.profileNom = profileNom;
+    }
+
+    public String getProfilePrenom() {
+        return profilePrenom;
+    }
+
+    public void setProfilePrenom(String profilePrenom) {
+        this.profilePrenom = profilePrenom;
+    }
+
+    public String getProfileVille() {
+        return profileVille;
+    }
+
+    public void setProfileVille(String profileVille) {
+        this.profileVille = profileVille;
+    }
+
+    public String getProfileEmail() {
+        return profileEmail;
+    }
+
+    public void setProfileEmail(String profileEmail) {
+        this.profileEmail = profileEmail;
+    }
+
+    public String getProfileTelephone() {
+        return profileTelephone;
+    }
+
+    public void setProfileTelephone(String profileTelephone) {
+        this.profileTelephone = profileTelephone;
     }
 }

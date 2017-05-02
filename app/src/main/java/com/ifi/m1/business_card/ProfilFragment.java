@@ -21,8 +21,6 @@ public class ProfilFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         vProfil = inflater.inflate(R.layout.profil_layout, container, false);
 
-        ((MainActivity) this.getActivity()).lireConfigProfile();
-
         EditText txtNom = (EditText) vProfil.findViewById(R.id.editTextNom);
         txtNom.setText(((MainActivity) this.getActivity()).getProfileNom());
         txtNom.addTextChangedListener(new TextWatcher() {

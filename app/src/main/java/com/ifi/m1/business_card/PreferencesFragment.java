@@ -14,7 +14,6 @@ import java.io.OutputStreamWriter;
 public class PreferencesFragment extends Fragment {
     View vPreferences;
     CheckBox prenom, email, adresse, profession;
-    boolean prenomB, adresseB, emailB, professionB;
 
     @Nullable
     @Override
@@ -25,88 +24,62 @@ public class PreferencesFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        prenomB = ((MainActivity) this.getActivity()).getPrenomB();
-        adresseB = ((MainActivity) this.getActivity()).getAdresseB();
-        professionB = ((MainActivity) this.getActivity()).getProfessionB();
-        emailB = ((MainActivity) this.getActivity()).getEmailB();
         prenom = (CheckBox) this.getActivity().findViewById(R.id.checkPrenom);
-        adresse = (CheckBox) this.getActivity().findViewById(R.id.checkAdresse);
-        email = (CheckBox) this.getActivity().findViewById(R.id.checkEmail);
-        profession = (CheckBox) this.getActivity().findViewById(R.id.checkProfession);
+        prenom.setChecked(((MainActivity) getActivity()).getPreferencesPrenom());
         prenom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                prenomB = prenom.isChecked();
+                ((MainActivity) getActivity()).setPreferencesPrenom(prenom.isChecked());
                 ecrireConfig();
                 ((MainActivity) getActivity()).lireConfig();
-                prenomB = ((MainActivity) getActivity()).getPrenomB();
-                adresseB = ((MainActivity) getActivity()).getAdresseB();
-                professionB = ((MainActivity) getActivity()).getProfessionB();
-                emailB = ((MainActivity) getActivity()).getEmailB();
             }
         });
+
+        adresse = (CheckBox) this.getActivity().findViewById(R.id.checkAdresse);
+        adresse.setChecked(((MainActivity) getActivity()).getPreferencesAdresse());
         adresse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                adresseB = adresse.isChecked();
+                ((MainActivity) getActivity()).setPreferencesAdresse(adresse.isChecked());
                 ecrireConfig();
                 ((MainActivity) getActivity()).lireConfig();
-                prenomB = ((MainActivity) getActivity()).getPrenomB();
-                adresseB = ((MainActivity) getActivity()).getAdresseB();
-                professionB = ((MainActivity) getActivity()).getProfessionB();
-                emailB = ((MainActivity) getActivity()).getEmailB();
             }
         });
+
+        email = (CheckBox) this.getActivity().findViewById(R.id.checkEmail);
+        email.setChecked(((MainActivity) getActivity()).getPreferencesEmail());
         email.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                emailB = email.isChecked();
+                ((MainActivity) getActivity()).setPreferencesEmail(email.isChecked());
                 ecrireConfig();
                 ((MainActivity) getActivity()).lireConfig();
-                prenomB = ((MainActivity) getActivity()).getPrenomB();
-                adresseB = ((MainActivity) getActivity()).getAdresseB();
-                professionB = ((MainActivity) getActivity()).getProfessionB();
-                emailB = ((MainActivity) getActivity()).getEmailB();
             }
         });
+
+        profession = (CheckBox) this.getActivity().findViewById(R.id.checkProfession);
+        profession.setChecked(((MainActivity) getActivity()).getPreferencesProfession());
         profession.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                professionB = profession.isChecked();
+                ((MainActivity) getActivity()).setPreferencesProfession(profession.isChecked());
                 ecrireConfig();
                 ((MainActivity) getActivity()).lireConfig();
-                prenomB = ((MainActivity) getActivity()).getPrenomB();
-                adresseB = ((MainActivity) getActivity()).getAdresseB();
-                professionB = ((MainActivity) getActivity()).getProfessionB();
-                emailB = ((MainActivity) getActivity()).getEmailB();
             }
         });
-        if (prenomB) {
-            prenom.setChecked(true);
-        }
-        if (adresseB) {
-            adresse.setChecked(true);
-        }
-        if (emailB) {
-            email.setChecked(true);
-        }
-        if (professionB) {
-            profession.setChecked(true);
-        }
-
     }
 
     private void ecrireConfig() {
         OutputStreamWriter osw;
         try {
             osw = new OutputStreamWriter(this.getActivity().openFileOutput("config.bin", Context.MODE_PRIVATE));
-            osw.write(String.valueOf(prenomB));
+            osw.write(String.valueOf(((MainActivity) getActivity()).getPreferencesPrenom()));
             osw.write(" ");
-            osw.write(String.valueOf(adresseB));
+            osw.write(String.valueOf(((MainActivity) getActivity()).getPreferencesAdresse()));
             osw.write(" ");
-            osw.write(String.valueOf(emailB));
+            osw.write(String.valueOf(((MainActivity) getActivity()).getPreferencesEmail()));
             osw.write(" ");
-            osw.write(String.valueOf(professionB));
+            osw.write(String.valueOf(((MainActivity) getActivity()).getPreferencesProfession()));
             osw.close();
         } catch (Exception e) {
             e.printStackTrace();

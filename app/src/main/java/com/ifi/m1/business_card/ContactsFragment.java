@@ -1,12 +1,9 @@
 package com.ifi.m1.business_card;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.ListFragment;
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteCursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,8 +15,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -57,7 +52,7 @@ public class ContactsFragment extends ListFragment {
         generateCard.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Carte c = new Carte(nomString, numeroString);
-                if(((MainActivity)getActivity()).getAdresseB()){
+                if(((MainActivity)getActivity()).getPreferencesAdresse()){
 
                     System.out.println("ACTIVER");
                 }

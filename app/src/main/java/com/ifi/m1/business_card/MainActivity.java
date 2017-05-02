@@ -8,23 +8,20 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    public boolean prenomB = false;
-    public boolean adresseB = false;
-    public boolean emailB = false;
-    public boolean professionB = false;
+    public boolean preferencesPrenom = false;
+    public boolean preferencesAdresse = false;
+    public boolean preferencesEmail = false;
+    public boolean preferencesProfession = false;
 
     private String profileNom = "";
     private String profilePrenom = "";
@@ -32,36 +29,36 @@ public class MainActivity extends AppCompatActivity
     private String profileEmail = "";
     private String profileTelephone = "";
 
-    public boolean getPrenomB() {
-        return prenomB;
+    public boolean getPreferencesPrenom() {
+        return preferencesPrenom;
     }
 
-    public void setPrenomB(boolean prenomB) {
-        this.prenomB = prenomB;
+    public void setPreferencesPrenom(boolean preferencesPrenom) {
+        this.preferencesPrenom = preferencesPrenom;
     }
 
-    public boolean getAdresseB() {
-        return adresseB;
+    public boolean getPreferencesAdresse() {
+        return preferencesAdresse;
     }
 
-    public void setAdresseB(boolean adresseB) {
-        this.adresseB = adresseB;
+    public void setPreferencesAdresse(boolean preferencesAdresse) {
+        this.preferencesAdresse = preferencesAdresse;
     }
 
-    public boolean getEmailB() {
-        return emailB;
+    public boolean getPreferencesEmail() {
+        return preferencesEmail;
     }
 
-    public void setEmailB(boolean emailB) {
-        this.emailB = emailB;
+    public void setPreferencesEmail(boolean emailB) {
+        this.preferencesEmail = emailB;
     }
 
-    public boolean getProfessionB() {
-        return professionB;
+    public boolean getPreferencesProfession() {
+        return preferencesProfession;
     }
 
-    public void setProfessionB(boolean professionB) {
-        this.professionB = professionB;
+    public void setPreferencesProfession(boolean professionB) {
+        this.preferencesProfession = professionB;
     }
 
     public void lireConfig(){
@@ -71,7 +68,7 @@ public class MainActivity extends AppCompatActivity
             if ( inputStream != null ) {
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String receiveString = "";
+                String receiveString;
                 StringBuilder stringBuilder = new StringBuilder();
 
                 while ( (receiveString = bufferedReader.readLine()) != null ) {
@@ -80,10 +77,10 @@ public class MainActivity extends AppCompatActivity
 
                 inputStream.close();
                 String[] config = stringBuilder.toString().split(" ");
-                prenomB = Boolean.parseBoolean(config[0]);
-                adresseB = Boolean.parseBoolean(config[1]);
-                emailB = Boolean.parseBoolean(config[2]);
-                professionB = Boolean.parseBoolean(config[3]);
+                setPreferencesPrenom(Boolean.parseBoolean(config[0]));
+                setPreferencesAdresse(Boolean.parseBoolean(config[1]));
+                setPreferencesEmail(Boolean.parseBoolean(config[2]));
+                setPreferencesProfession(Boolean.parseBoolean(config[3]));
             }
         }
         catch (Exception e) {
@@ -123,6 +120,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         lireConfig();
+        lireConfigProfile();
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

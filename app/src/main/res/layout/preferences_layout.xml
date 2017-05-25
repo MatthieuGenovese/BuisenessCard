@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/checkPrenom"
         android:layout_below="@+id/checkPrenom"
-        android:text="EMAIL" />
+        android:text="Email" />
 
     <CheckBox
         android:id="@+id/checkAdresse"
@@ -43,6 +43,6 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/checkAdresse"
         android:layout_below="@+id/checkAdresse"
-        android:text="profession" />
+        android:text="Profession" />
 
 </RelativeLayout>

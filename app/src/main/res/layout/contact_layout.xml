@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:id="@+id/profil">
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contact"
+        android:id="@+id/textView11"
+        android:padding="10px"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textStyle="normal|bold" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_marginTop="43dp"
+        android:id="@+id/editTextNom"
+        android:hint="Nom"
+        android:layout_below="@+id/textView11"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/editTextVille"
+        android:hint="Adresse"
+        android:layout_below="@+id/editTextNom"
+        android:layout_alignStart="@+id/editTextNom"
+        android:layout_marginTop="10dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/editTextEmail"
+        android:hint="Email"
+        android:layout_centerVertical="true"
+        android:layout_below="@+id/editTextVille"
+        android:layout_alignStart="@+id/editTextVille"
+        android:layout_marginTop="10dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/editTextPhone"
+        android:hint="Téléphone"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/editTextEmail"
+        android:layout_alignStart="@+id/editTextEmail" />
+
+    <Button
+        android:id="@+id/sendCard"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/editTextPhone"
+        android:layout_alignStart="@+id/editTextPhone"
+        android:layout_below="@+id/editTextPhone"
+        android:layout_marginTop="30dp"
+        android:background="@color/colorAccent"
+        android:text="Envoyer ma carte" />
+
+    <Button
+        android:id="@+id/deleteContact"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/sendCard"
+        android:layout_alignStart="@+id/sendCard"
+        android:layout_below="@+id/sendCard"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorPrimary"
+        android:text="Supprimer ce contact" />
+
+</RelativeLayout>

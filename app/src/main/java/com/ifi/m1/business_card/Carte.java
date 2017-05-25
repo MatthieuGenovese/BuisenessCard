@@ -1,35 +1,23 @@
 package com.ifi.m1.business_card;
 
-/**
- * Created by Matthieu on 10/04/2017.
- */
-
 public class Carte {
-    private String nom,prenom,adresse,email,tel,profession;
+    private String nom, adresse, email, tel, profession;
 
-    public Carte(String nom,String tel){
+    public Carte(String nom, String tel){
         this.nom = nom;
         this.tel = tel;
     }
 
     public String getNom() {
-        return nom;
+        return this.nom;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getPrenom() {
-        return prenom;
-    }
-
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
+    public String getTel() {
+        return this.tel;
     }
 
     public String getAdresse() {
-        return adresse;
+        return this.adresse;
     }
 
     public void setAdresse(String adresse) {
@@ -37,23 +25,15 @@ public class Carte {
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public String getTel() {
-        return tel;
-    }
-
-    public void setTel(String tel) {
-        this.tel = tel;
-    }
-
     public String getProfession() {
-        return profession;
+        return this.profession;
     }
 
     public void setProfession(String profession) {
@@ -61,6 +41,6 @@ public class Carte {
     }
 
     public String toString(){
-        return nom + prenom + adresse + email  + tel + profession;
+        return this.nom + this.adresse + this.email  + this.tel + this.profession;
     }
 }

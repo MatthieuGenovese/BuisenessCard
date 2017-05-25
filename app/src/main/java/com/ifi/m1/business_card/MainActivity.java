@@ -15,8 +15,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     public boolean preferencesPrenom = false;
     public boolean preferencesAdresse = false;
@@ -28,6 +27,11 @@ public class MainActivity extends AppCompatActivity
     private String profileVille = "";
     private String profileEmail = "";
     private String profileTelephone = "";
+
+    public String selectedNom = "";
+    public String selectedAdresse = "";
+    public String selectedEmail = "";
+    public String selectedTelephone = "";
 
     public boolean getPreferencesPrenom() {
         return preferencesPrenom;
@@ -61,17 +65,17 @@ public class MainActivity extends AppCompatActivity
         this.preferencesProfession = professionB;
     }
 
-    public void lireConfig(){
+    public void lireConfig() {
 
         try {
             InputStream inputStream = openFileInput("config.bin");
-            if ( inputStream != null ) {
+            if (inputStream != null) {
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
                 String receiveString;
                 StringBuilder stringBuilder = new StringBuilder();
 
-                while ( (receiveString = bufferedReader.readLine()) != null ) {
+                while ((receiveString = bufferedReader.readLine()) != null) {
                     stringBuilder.append(receiveString);
                 }
 
@@ -82,9 +86,8 @@ public class MainActivity extends AppCompatActivity
                 setPreferencesEmail(Boolean.parseBoolean(config[2]));
                 setPreferencesProfession(Boolean.parseBoolean(config[3]));
             }
-        }
-        catch (Exception e) {
-           System.out.println(e);
+        } catch (Exception e) {
+            System.out.println(e);
         }
 
     }
@@ -98,7 +101,7 @@ public class MainActivity extends AppCompatActivity
                 String receiveString;
                 StringBuilder stringBuilder = new StringBuilder();
 
-                while ( (receiveString = bufferedReader.readLine()) != null ) {
+                while ((receiveString = bufferedReader.readLine()) != null) {
                     stringBuilder.append(receiveString);
                 }
 
@@ -110,8 +113,7 @@ public class MainActivity extends AppCompatActivity
                 setProfileEmail(config[3]);
                 setProfileTelephone(config[4]);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
     }

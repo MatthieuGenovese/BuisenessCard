@@ -5,50 +5,28 @@
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="400dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vous n'avez pas encore de contact"
+        android:id="@+id/noContact"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_centerHorizontal="true"
+        android:textStyle="normal" />
 
     <Button
         android:id="@+id/addFromContacts"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ajouter à partir des contacts"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="45dp" />
-
-    <Button
-        android:id="@+id/generateCard"
-        android:layout_width="wrap_content"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:text="Générer carte"
-        android:visibility="invisible" />
-
-    <TextView
-        android:id="@+id/textNom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:text="Nom : "
-        android:layout_below="@android:id/list" />
-
-    <TextView
-        android:id="@+id/textPrenom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:text="Prénom :"
-        android:layout_below="@+id/textNom"/>
-
-    <TextView
-        android:id="@+id/textPhoneNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Numéro : "
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textPrenom"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="22dp"
+        android:background="@color/colorAccent"
+        android:text="Ajouter à partir des contacts" />
 
 </RelativeLayout>

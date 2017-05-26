@@ -73,8 +73,8 @@ public class OneContactFragment extends Fragment {
         sendCard = (Button) this.getActivity().findViewById(R.id.sendCard);
         sendCard.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String msg = "Bonjour, \n\n" +
-                        "Voici ma carte de visite : \n " +
+                String msg = "BCJFMG\nBonjour,\n" +
+                        "Voici ma carte de visite : \n" +
                         "- " + ((MainActivity) getActivity()).getProfileNom() + " " + ((MainActivity) getActivity()).getProfilePrenom() + "\n" +
                         "- " + ((MainActivity) getActivity()).getProfileTelephone() + "\n" +
                         "- " + ((MainActivity) getActivity()).getProfileEmail() + "\n" +

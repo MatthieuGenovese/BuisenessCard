@@ -95,12 +95,17 @@ public class ContactsAdapter extends ContactsBase {
     public boolean existContact(String nom) {
         Cursor cursor = super.getDb().rawQuery("SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE " + COLUMN_NAME_NOM + " = '" + nom + "';", new String[]{});
 
-        int result = 0;
+        boolean result = false;
         while (cursor.moveToNext()) {
-            result = cursor.getInt(0);
+            System.out.println("je passe par ici");
+            System.out.println(cursor.getString(0));
+            if(!cursor.getString(0).equalsIgnoreCase("0")){
+
+                result = true;
+            }
         }
         cursor.close();
 
-        return result != 0;
+        return result;
     }
 }

@@ -41,6 +41,6 @@ public class Carte {
     }
 
     public String toString(){
-        return this.nom + this.adresse + this.email  + this.tel + this.profession;
+        return this.nom + " "+this.adresse + " "+ this.email  + " " +this.tel + " " +this.profession;
     }
 }

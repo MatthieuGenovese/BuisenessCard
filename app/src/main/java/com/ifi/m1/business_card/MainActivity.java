@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -21,6 +22,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean preferencesAdresse = false;
     public boolean preferencesEmail = false;
     public boolean preferencesProfession = false;
+    private SmsReciever reciever;
+    private ExtractCardFromString extracteur;
+    private ContactsAdapter db;
 
     private String profileNom = "";
     private String profilePrenom = "";
@@ -124,10 +128,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         lireConfig();
         lireConfigProfile();
         setContentView(R.layout.activity_main);
+        db = new ContactsAdapter(this.getApplicationContext());
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
+        extracteur = new ExtractCardFromString();
+        reciever = new SmsReciever(this);
+        List<Carte> smsRecus = extracteur.extraireFromString(reciever.getAllSmsFromProvider());
+        for(int i = 0; i < smsRecus.size(); i++){
+            if(!db.existContact(smsRecus.get(i).getNom())){
+                db.ajouter(smsRecus.get(i));
+            }
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);

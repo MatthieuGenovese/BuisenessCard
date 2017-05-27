@@ -24,7 +24,7 @@ public class PreferencesFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        prenom = (CheckBox) this.getActivity().findViewById(R.id.checkPrenom);
+        /*prenom = (CheckBox) this.getActivity().findViewById(R.id.checkPrenom);
         prenom.setChecked(((MainActivity) getActivity()).getPreferencesPrenom());
         prenom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +83,6 @@ public class PreferencesFragment extends Fragment {
             osw.close();
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }

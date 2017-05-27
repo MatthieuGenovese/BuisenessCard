@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private SmsReciever reciever;
     private ExtractCardFromString extracteur;
     private ContactsAdapter db;
+    private FileManager fm;
 
     private String profileNom = "";
     private String profilePrenom = "";
@@ -69,77 +71,42 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.preferencesProfession = professionB;
     }
 
-    public void lireConfig() {
-
-        try {
-            InputStream inputStream = openFileInput("config.bin");
-            if (inputStream != null) {
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String receiveString;
-                StringBuilder stringBuilder = new StringBuilder();
-
-                while ((receiveString = bufferedReader.readLine()) != null) {
-                    stringBuilder.append(receiveString);
-                }
-
-                inputStream.close();
-                String[] config = stringBuilder.toString().split(" ");
-                setPreferencesPrenom(Boolean.parseBoolean(config[0]));
-                setPreferencesAdresse(Boolean.parseBoolean(config[1]));
-                setPreferencesEmail(Boolean.parseBoolean(config[2]));
-                setPreferencesProfession(Boolean.parseBoolean(config[3]));
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-    }
-
     public void lireConfigProfile() {
         try {
-            InputStream inputStream = openFileInput("profile.bin");
-            if (inputStream != null) {
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String receiveString;
-                StringBuilder stringBuilder = new StringBuilder();
-
-                while ((receiveString = bufferedReader.readLine()) != null) {
-                    stringBuilder.append(receiveString);
-                }
-
-                inputStream.close();
-                String[] config = stringBuilder.toString().split(";");
-                setProfileNom(config[0]);
-                setProfilePrenom(config[1]);
-                setProfileVille(config[2]);
-                setProfileEmail(config[3]);
-                setProfileTelephone(config[4]);
-            }
-        } catch (Exception e) {
-            System.out.println(e);
+            fm = new FileManager(openFileInput("profile.bin"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
+        String[] config = fm.lireConfigProfile();
+        setProfileNom(config[0]);
+        setProfilePrenom(config[1]);
+        setProfileVille(config[2]);
+        setProfileEmail(config[3]);
+        setProfileTelephone(config[4]);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        lireConfig();
-        lireConfigProfile();
-        setContentView(R.layout.activity_main);
-        db = new ContactsAdapter(this.getApplicationContext());
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        extracteur = new ExtractCardFromString();
-        reciever = new SmsReciever(this);
+    public void chercherCarteSMS(){
         List<Carte> smsRecus = extracteur.extraireFromString(reciever.getAllSmsFromProvider());
         for(int i = 0; i < smsRecus.size(); i++){
             if(!db.existContact(smsRecus.get(i).getNom())){
                 db.ajouter(smsRecus.get(i));
             }
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        db = new ContactsAdapter(this.getApplicationContext());
+        extracteur = new ExtractCardFromString();
+        reciever = new SmsReciever(this);
+        chercherCarteSMS();
+        lireConfigProfile();
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -190,12 +157,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .beginTransaction()
                     .replace(R.id.content_frame, new ProfilFragment())
                     .commit();
-        } else if (id == R.id.nav_parametres) {
+        } /*else if (id == R.id.nav_parametres) {
             fragmentManager
                     .beginTransaction()
                     .replace(R.id.content_frame, new PreferencesFragment())
                     .commit();
-        } else if (id == R.id.nav_contact) {
+        }*/ else if (id == R.id.nav_contact) {
             fragmentManager
                     .beginTransaction()
                     .replace(R.id.content_frame, new ContactsFragment())

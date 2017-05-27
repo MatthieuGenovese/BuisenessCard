@@ -23,11 +23,11 @@ public class ExtractCardFromString {
                 String[] emailS = result[5].split(" ");
                 String[] villeS = result[6].split(" ");
                 if(nomS.length > 1){
-                    if(nomS.length > 3) {
-                        nom = nomS[2] + " " + nomS[3];
+                    if(nomS.length > 2) {
+                        nom = nomS[1] + " " + nomS[2];
                     }
                     else{
-                        nom = nomS[2];
+                        nom = nomS[1];
                     }
                 }
                 if(telS.length > 1){
@@ -46,6 +46,7 @@ public class ExtractCardFromString {
                 System.out.println(res);
             }
         }
+        liste.clear();
         return resultat;
     }
 }

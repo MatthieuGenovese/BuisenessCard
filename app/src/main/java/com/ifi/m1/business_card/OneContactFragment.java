@@ -23,26 +23,28 @@ import java.util.Objects;
 
 public class OneContactFragment extends Fragment {
     View vContact;
-    Button deleteContact, sendCard;
+    Button deleteContact, sendCard, editContact, validChangement;
+    EditText txtNom, txtAdresse, txtEmail, txtTel;
+    String nomS = "";
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         vContact = inflater.inflate(R.layout.contact_layout, container, false);
 
-        EditText txtNom = (EditText) vContact.findViewById(R.id.editTextNom);
+        txtNom = (EditText) vContact.findViewById(R.id.editTextNom);
         txtNom.setText(((MainActivity) getActivity()).selectedNom);
         txtNom.setEnabled(false);
 
-        EditText txtAdresse = (EditText) vContact.findViewById(R.id.editTextVille);
+        txtAdresse = (EditText) vContact.findViewById(R.id.editTextVille);
         txtAdresse.setText(((MainActivity) getActivity()).selectedAdresse);
         txtAdresse.setEnabled(false);
 
-        EditText txtEmail = (EditText) vContact.findViewById(R.id.editTextEmail);
+        txtEmail = (EditText) vContact.findViewById(R.id.editTextEmail);
         txtEmail.setText(((MainActivity) getActivity()).selectedEmail);
         txtEmail.setEnabled(false);
 
-        EditText txtTel = (EditText) vContact.findViewById(R.id.editTextPhone);
+        txtTel = (EditText) vContact.findViewById(R.id.editTextPhone);
         txtTel.setText(((MainActivity) getActivity()).selectedTelephone);
         txtTel.setEnabled(false);
 
@@ -82,6 +84,37 @@ public class OneContactFragment extends Fragment {
 
                 SmsManager.getDefault().sendTextMessage(((MainActivity) getActivity()).selectedTelephone, null, msg, null, null);
                 Toast.makeText(getActivity(), "Carte de visite envoyée !", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        editContact = (Button) this.getActivity().findViewById(R.id.editButton);
+        editContact.setOnClickListener( new View.OnClickListener() {
+            public void onClick(View v) {
+                nomS = txtNom.getText().toString();
+                txtAdresse.setEnabled(true);
+                txtNom.setEnabled(true);
+                txtEmail.setEnabled(true);
+                txtTel.setEnabled(true);
+                editContact.setEnabled(false);
+                validChangement.setVisibility(View.VISIBLE);
+                sendCard.setEnabled(false);
+                deleteContact.setEnabled(false);
+            }
+        });
+
+        validChangement = (Button) this.getActivity().findViewById(R.id.validerChangement);
+        validChangement.setOnClickListener( new View.OnClickListener() {
+            public void onClick(View v) {
+                txtAdresse.setEnabled(false);
+                txtNom.setEnabled(false);
+                txtEmail.setEnabled(false);
+                txtTel.setEnabled(false);
+                final ContactsAdapter db = new ContactsAdapter(getActivity().getApplicationContext());
+                db.modifier(nomS, txtEmail.getText().toString(), txtAdresse.getText().toString(), txtTel.getText().toString(), txtNom.getText().toString());
+                editContact.setEnabled(true);
+                validChangement.setVisibility(View.INVISIBLE);
+                sendCard.setEnabled(true);
+                deleteContact.setEnabled(true);
             }
         });
     }

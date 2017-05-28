@@ -14,47 +14,17 @@ public class FileManager {
         this.inputStream = is;
     }
 
-   /* public void lireConfig() {
-
-        try {
-            InputStream inputStream = openFileInput("config.bin");
-            if (inputStream != null) {
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String receiveString;
-                StringBuilder stringBuilder = new StringBuilder();
-
-                while ((receiveString = bufferedReader.readLine()) != null) {
-                    stringBuilder.append(receiveString);
-                }
-
-                inputStream.close();
-                String[] config = stringBuilder.toString().split(" ");
-                setPreferencesPrenom(Boolean.parseBoolean(config[0]));
-                setPreferencesAdresse(Boolean.parseBoolean(config[1]));
-                setPreferencesEmail(Boolean.parseBoolean(config[2]));
-                setPreferencesProfession(Boolean.parseBoolean(config[3]));
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-    }*/
-
     public String[] lireConfigProfile() {
         String[] config = new String[10];
         try {
-            //InputStream inputStream = openFileInput("profile.bin");
             if (inputStream != null) {
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
                 String receiveString;
                 StringBuilder stringBuilder = new StringBuilder();
-
                 while ((receiveString = bufferedReader.readLine()) != null) {
                     stringBuilder.append(receiveString);
                 }
-
                 inputStream.close();
                 String[] config2 = stringBuilder.toString().split(";");
                 return config2;

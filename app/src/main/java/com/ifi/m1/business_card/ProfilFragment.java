@@ -33,7 +33,6 @@ public class ProfilFragment extends Fragment {
                 // Changer le nom
                 ((MainActivity) getActivity()).setProfileNom(String.valueOf(s));
                 ecrireConfigProfile();
-                ((MainActivity) getActivity()).lireConfigProfile();
             }
         });
 
@@ -49,7 +48,6 @@ public class ProfilFragment extends Fragment {
                 // Changer le prénom
                 ((MainActivity) getActivity()).setProfilePrenom(String.valueOf(s));
                 ecrireConfigProfile();
-                ((MainActivity) getActivity()).lireConfigProfile();
             }
         });
 
@@ -65,7 +63,6 @@ public class ProfilFragment extends Fragment {
                 // Changer la ville
                 ((MainActivity) getActivity()).setProfileVille(String.valueOf(s));
                 ecrireConfigProfile();
-                ((MainActivity) getActivity()).lireConfigProfile();
             }
         });
 
@@ -81,7 +78,6 @@ public class ProfilFragment extends Fragment {
                 // Changer l'email
                 ((MainActivity) getActivity()).setProfileEmail(String.valueOf(s));
                 ecrireConfigProfile();
-                ((MainActivity) getActivity()).lireConfigProfile();
             }
         });
 
@@ -97,7 +93,6 @@ public class ProfilFragment extends Fragment {
                 // Changer le téléphone
                 ((MainActivity) getActivity()).setProfileTelephone(String.valueOf(s));
                 ecrireConfigProfile();
-                ((MainActivity) getActivity()).lireConfigProfile();
             }
         });
 

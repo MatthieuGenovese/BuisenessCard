@@ -7,7 +7,7 @@ import java.util.List;
  * Created by Matthieu on 26/05/2017.
  */
 
-public class ExtractCardFromString {
+public class ExtractCard {
 
     public List<Carte> extraireFromString(List<String> liste){
         List<Carte> resultat = new ArrayList<>();

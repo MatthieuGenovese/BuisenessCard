@@ -11,10 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -24,7 +21,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean preferencesEmail = false;
     public boolean preferencesProfession = false;
     private SmsReciever reciever;
-    private ExtractCardFromString extracteur;
+    private ExtractCard extracteur;
     private ContactsAdapter db;
     private FileManager fm;
 
@@ -78,11 +75,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             e.printStackTrace();
         }
         String[] config = fm.lireConfigProfile();
-        setProfileNom(config[0]);
-        setProfilePrenom(config[1]);
-        setProfileVille(config[2]);
-        setProfileEmail(config[3]);
-        setProfileTelephone(config[4]);
+        try {
+            setProfileNom(config[0]);
+            setProfilePrenom(config[1]);
+            setProfileVille(config[2]);
+            setProfileEmail(config[3]);
+            setProfileTelephone(config[4]);
+        }
+        catch(Exception e){}
     }
 
     public void chercherCarteSMS(){
@@ -99,10 +99,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
 
         db = new ContactsAdapter(this.getApplicationContext());
-        extracteur = new ExtractCardFromString();
+        extracteur = new ExtractCard();
         reciever = new SmsReciever(this);
         chercherCarteSMS();
-        lireConfigProfile();
+        try {
+            lireConfigProfile();
+        }
+        catch(NullPointerException e){}
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -157,12 +160,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .beginTransaction()
                     .replace(R.id.content_frame, new ProfilFragment())
                     .commit();
-        } /*else if (id == R.id.nav_parametres) {
-            fragmentManager
-                    .beginTransaction()
-                    .replace(R.id.content_frame, new PreferencesFragment())
-                    .commit();
-        }*/ else if (id == R.id.nav_contact) {
+        } else if (id == R.id.nav_contact) {
             fragmentManager
                     .beginTransaction()
                     .replace(R.id.content_frame, new ContactsFragment())

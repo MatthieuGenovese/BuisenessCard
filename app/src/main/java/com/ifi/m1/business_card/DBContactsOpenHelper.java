@@ -11,16 +11,16 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBContactsOpenHelper extends SQLiteOpenHelper {
     public static final String TABLE_NAME = "test";
     public static final String COLUMN_NAME_KEY = "_id";
+    public static final String COLUMN_CONTACT_ID = "ContactID";
     public static final String COLUMN_NAME_NOM = "nom";
-    public static final String COLUMN_NAME_PRENOM= "prenom";
     public static final String COLUMN_NAME_EMAIL = "email";
     public static final String COLUMN_NAME_PROFESSION = "profession";
     public static final String COLUMN_NAME_ADRESSE = "adresse";
     public static final String COLUMN_NAME_TEL = "tel";
     public static final String SQL_CREATE = "CREATE TABLE " + TABLE_NAME + "( " +
             COLUMN_NAME_KEY + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            COLUMN_CONTACT_ID + " TEXT, " +
             COLUMN_NAME_NOM + " TEXT, " +
-            COLUMN_NAME_PRENOM + " TEXT, " +
             COLUMN_NAME_EMAIL + " TEXT, " +
             COLUMN_NAME_TEL + " TEXT, " +
             COLUMN_NAME_ADRESSE + " TEXT, " +

@@ -55,7 +55,7 @@ public class ContactsFragment extends ListFragment {
 
     @Override
     public void onActivityResult(int reqCode, int resultCode, Intent data) {
-        String id, cName, cNumber, cEmail, cAdresse = "";
+        String id="", cName ="", cNumber = "", cEmail = "", cAdresse = "";
 
         super.onActivityResult(reqCode, resultCode, data);
         switch (reqCode) {
@@ -87,8 +87,11 @@ public class ContactsFragment extends ListFragment {
                                     ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = " + id,
                                     null, null);
                             emailCursor.moveToFirst();
-                            cEmail = emailCursor.getString(emailCursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
-                            emailCursor.close();
+                            try {
+                                cEmail = emailCursor.getString(emailCursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
+                                emailCursor.close();
+                            }
+                            catch(Exception e){}
 
                             // On récupère l'adresse postale
                             String addrWhere = ContactsContract.Data.CONTACT_ID + " = ? AND " + ContactsContract.Data.MIMETYPE + " = ?";
@@ -99,16 +102,18 @@ public class ContactsFragment extends ListFragment {
                                     addrWhereParams, null);
                             while(adresseCursor.moveToNext()) {
                                 cAdresse = adresseCursor.getString(adresseCursor.getColumnIndex(ContactsContract.CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS));
-                            }
-                            adresseCursor.close();
+                        }
+                        adresseCursor.close();
 
                             Carte c = new Carte(cName, cNumber);
+                            c.setContactID(id);
                             c.setEmail(cEmail);
                             c.setAdresse(cAdresse);
 
                             final ContactsAdapter db = new ContactsAdapter(this.getActivity().getApplicationContext());
                             if (!db.existContact(cName)) {
-                                db.ajouter(c);
+                                //db.ajouter(c);
+                                db.ajouterFromTel(c);
                                 initListContacts(db);
                             }
                         }
@@ -132,8 +137,21 @@ public class ContactsFragment extends ListFragment {
             }
         });
         while (cursor.moveToNext()) {
-            String nomS = cursor.getString(1);
-            results.add(nomS);
+            if(cursor.getString(1).equalsIgnoreCase("-1")) {
+                String nomS = cursor.getString(2);
+                results.add(nomS);
+            }
+            else{
+                // On récupère le numéro de tel
+                Cursor phoneCursor = this.getActivity().getContentResolver().query(
+                        ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
+                        ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + cursor.getString(1),
+                        null, null);
+                phoneCursor.moveToFirst();
+                String nomS = phoneCursor.getString(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+                phoneCursor.close();
+                results.add(nomS);
+            }
         }
 
         noContacts = (TextView) vContacts.findViewById(R.id.noContact);
@@ -151,10 +169,59 @@ public class ContactsFragment extends ListFragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String line = (String) getListView().getItemAtPosition(i);
                 Carte card = db.selectionner(line);
-                ((MainActivity) getActivity()).selectedNom = card.getNom();
-                ((MainActivity) getActivity()).selectedAdresse = card.getAdresse();
-                ((MainActivity) getActivity()).selectedEmail = card.getEmail();
-                ((MainActivity) getActivity()).selectedTelephone = card.getTel();
+                if(card.getContactID().equalsIgnoreCase("-1")) {
+                    System.out.println("je suis la fdp");
+                    ((MainActivity) getActivity()).selectedNom = card.getNom();
+                    ((MainActivity) getActivity()).selectedAdresse = card.getAdresse();
+                    ((MainActivity) getActivity()).selectedEmail = card.getEmail();
+                    ((MainActivity) getActivity()).selectedTelephone = card.getTel();
+                }
+                else{
+                    // On récupère le numéro de tel
+                    String cNumber ="",cEmail="",cAdresse="",cName="";
+                    Cursor nameCursor = getActivity().getContentResolver().query(
+                            ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
+                            ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + card.getContactID(),
+                            null, null);
+                   nameCursor.moveToFirst();
+                    cName = nameCursor.getString(nameCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+                    Cursor phoneCursor = getActivity().getContentResolver().query(
+                            ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
+                            ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + card.getContactID(),
+                            null, null);
+                    phoneCursor.moveToFirst();
+                    cNumber = phoneCursor.getString(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                    phoneCursor.close();
+
+
+                    // On récupère l'adresse email
+                    Cursor emailCursor = getActivity().getContentResolver().query(
+                            ContactsContract.CommonDataKinds.Email.CONTENT_URI, null,
+                            ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = " + card.getContactID(),
+                            null, null);
+                    emailCursor.moveToFirst();
+                    try {
+                        cEmail = emailCursor.getString(emailCursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
+                        emailCursor.close();
+                    }
+                    catch(Exception e){}
+
+                    // On récupère l'adresse postale
+                    String addrWhere = ContactsContract.Data.CONTACT_ID + " = ? AND " + ContactsContract.Data.MIMETYPE + " = ?";
+                    String[] addrWhereParams = new String[]{card.getContactID(), ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE};
+                    Cursor adresseCursor = getActivity().getContentResolver().query(
+                            ContactsContract.Data.CONTENT_URI,
+                            null, addrWhere,
+                            addrWhereParams, null);
+                    while(adresseCursor.moveToNext()) {
+                        cAdresse = adresseCursor.getString(adresseCursor.getColumnIndex(ContactsContract.CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS));
+                    }
+                    adresseCursor.close();
+                    ((MainActivity) getActivity()).selectedNom = cName;
+                    ((MainActivity) getActivity()).selectedAdresse = cAdresse;
+                    ((MainActivity) getActivity()).selectedEmail = cEmail;
+                    ((MainActivity) getActivity()).selectedTelephone = cNumber;
+                }
 
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager
